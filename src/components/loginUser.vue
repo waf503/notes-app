@@ -12,7 +12,7 @@
                 <v-card-actions>
                     <v-layout row wrap justify-center>
                         <v-btn @click="login()" color="success">Log in</v-btn>
-                        <v-btn @click="hasAccount=false" color="warning">Register</v-btn>
+                        <v-btn class="ml-3" @click="hasAccount=false" color="warning">Register</v-btn>
                     </v-layout>
                 </v-card-actions>
 
@@ -52,7 +52,7 @@ export default {
             registerData: new Object()
         }
     },
-    methods: {
+    methods: {        
         login(){
             var data = {
                 email: this.loginData.email,

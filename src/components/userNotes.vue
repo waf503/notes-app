@@ -1,14 +1,20 @@
 <template>
     <v-layout row wrap justify-center align-center id="main">
+        <!--Barra de navegación-->
         <v-app-bar app color="indigo"> 
-            <h2 class="white--text">Hola {{user.name}}</h2>
-            <v-layout row wrap justify-end>
-                <v-btn color="indigo lighten-1" fab @click="agregarNotaDialog=true">
-                    <v-icon large color="white">mdi-plus</v-icon>
-                </v-btn>
-            </v-layout>
+            <v-toolbar-title>
+                <h2 class="white--text">Hola {{user.name}}</h2>
+            </v-toolbar-title>  
+            <v-spacer></v-spacer>
+            <v-btn @click="logOut()" v-model="mostrarLogOut" flat >
+                <span>Sign Out</span>
+            </v-btn>            
+            <v-btn small class="ml-2" color="indigo lighten-1" fab @click="agregarNotaDialog=true">
+                <v-icon  large color="white">mdi-plus</v-icon>
+            </v-btn>
+            
         </v-app-bar>
-
+        <!--mostrar todas las notas-->
         <v-layout row wrap justify-center align-start>
             <v-card  v-for="(note, index) in notes" :key="index" class="ma-4"> 
                 <v-card-text >
@@ -26,6 +32,7 @@
                     </v-btn>
                 </v-card-text>
             </v-card>
+            <!--CUADRO DE DIALOGO PARA eliminar NOTA-->
             <v-dialog v-model="deleteDialog" :overlay="false" max-width="300px" transition="dialog-transition">
                 <v-card class="pa-4">
                     <v-card-text>
@@ -96,6 +103,7 @@ export default {
             noteEdit: new Object(),
             noteId: null,
             noteToCreate: new Object(),
+            mostrarLogOut: true
         }
     },
     mounted(){
@@ -104,6 +112,11 @@ export default {
         this.getNotes();
     },
     methods:{
+
+        logOut(){
+            localStorage.removeItem('user');
+            this.$router.push('/');
+        },
         addNote(){
             var data = {
                 title: this.noteToCreate.title,
